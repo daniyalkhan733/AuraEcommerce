@@ -1,0 +1,74 @@
+<div *ngIf="product; else notFound" class="container py-5">
+  <div class="row g-5">
+    <div class="col-md-6">
+      <div class="product-gallery glass rounded-4 p-4 p-md-5 d-flex align-items-center justify-content-center shadow-sm">
+        <img [src]="product.image" class="img-fluid rounded-4 shadow-lg hover-zoom" [alt]="product.name" style="max-height: 500px; object-fit: contain;">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="ps-md-4">
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/products" class="text-decoration-none text-muted">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.category }}</li>
+          </ol>
+        </nav>
+
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 fw-bold">{{ product.category }}</span>
+        <h1 class="display-5 fw-bold mb-3">{{ product.name }}</h1>
+        
+        <div class="d-flex align-items-center mb-4">
+          <div class="text-warning me-2">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-half"></i>
+          </div>
+          <span class="text-muted small">(4.5/5 based on 128 reviews)</span>
+        </div>
+
+        <h2 class="text-primary fw-bold mb-4 display-6">{{ product.price | currency:'INR' }}</h2>
+        
+        <p class="lead text-muted mb-5 lh-lg">{{ product.description }}</p>
+
+        <div class="d-flex flex-wrap gap-3 mb-5">
+          <button class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold shadow-sm d-flex align-items-center gap-2" (click)="addToCart()">
+            <i class="bi bi-bag-plus fs-5"></i> Add to Cart
+          </button>
+          <button class="btn btn-outline-secondary btn-lg px-4 py-3 rounded-pill fw-bold">
+            <i class="bi bi-heart"></i>
+          </button>
+        </div>
+
+        <div class="card border-0 bg-light rounded-4 p-4">
+          <div class="d-flex gap-4">
+            <div class="text-center">
+              <i class="bi bi-truck fs-3 text-primary mb-2 d-block"></i>
+              <small class="fw-bold d-block">Free Shipping</small>
+            </div>
+            <div class="text-center">
+              <i class="bi bi-shield-check fs-3 text-primary mb-2 d-block"></i>
+              <small class="fw-bold d-block">2 Year Warranty</small>
+            </div>
+            <div class="text-center">
+              <i class="bi bi-arrow-return-left fs-3 text-primary mb-2 d-block"></i>
+              <small class="fw-bold d-block">30-Day Returns</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="container py-5 text-center">
+    <div class="glass p-5 rounded-4 d-inline-block">
+      <i class="bi bi-exclamation-circle display-1 text-danger mb-4 d-block"></i>
+      <h3 class="fw-bold">Product Not Found</h3>
+      <p class="text-muted mb-4">We couldn't find the product you're looking for.</p>
+      <a routerLink="/products" class="btn btn-primary px-5 py-3 rounded-pill fw-bold">Back to Collections</a>
+    </div>
+  </div>
+</ng-template>

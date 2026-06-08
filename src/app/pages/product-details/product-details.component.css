@@ -1,0 +1,25 @@
+.product-gallery {
+  min-height: 400px;
+}
+
+.hover-zoom {
+  transition: transform 0.5s ease;
+}
+
+.hover-zoom:hover {
+  transform: scale(1.05);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "•";
+  color: #dee2e6;
+}
+
+.bg-primary-subtle {
+  background-color: #e0e7ff !important;
+}
+
+.lh-lg {
+  line-height: 1.8 !important;
+}
+  

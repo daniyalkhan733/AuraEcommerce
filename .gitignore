@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+dist/
+.angular/
+tmp/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Build outputs
+backend/node_modules/
+/dist/
+/out-tsc/
+/bazel-out/
+
+# Others
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+testem.log

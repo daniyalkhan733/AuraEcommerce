@@ -1,0 +1,122 @@
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-12">
+      <h1 class="fw-bold mb-2">Shopping Cart</h1>
+      <p class="text-muted" *ngIf="cart && cart.items.length > 0">You have {{ cart.items.length }} items in your cart</p>
+    </div>
+  </div>
+
+  <div *ngIf="cart && cart.items.length > 0; else emptyCart" class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="ps-4 py-3 border-0">Product</th>
+                  <th class="py-3 border-0">Price</th>
+                  <th class="py-3 border-0">Quantity</th>
+                  <th class="py-3 border-0">Total</th>
+                  <th class="py-3 border-0"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cart.items" [@itemRemove]>
+                  <ng-container *ngIf="item.product">
+                    <td class="ps-4">
+                      <div class="d-flex align-items-center py-2">
+                        <div class="rounded-3 overflow-hidden me-3 shadow-sm border" style="width: 70px; height: 70px;">
+                          <img [src]="item.product.image || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&q=80&w=70'" [alt]="item.product.name" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div>
+                          <h6 class="mb-0 fw-bold">{{ item.product.name }}</h6>
+                          <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.75rem tracking-wider;">{{ item.product.category || 'Premium' }}</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="fw-medium">{{ item.product.price | currency:'INR' }}</td>
+                    <td>
+                      <div class="d-inline-flex align-items-center bg-light rounded-pill p-1 border">
+                        <button class="btn btn-icon-sm rounded-circle border-0 bg-white shadow-sm" (click)="decreaseQuantity(item._id, item.quantity)">
+                          <i class="bi bi-dash"></i>
+                        </button>
+                        <span class="px-3 fw-bold">{{ item.quantity }}</span>
+                        <button class="btn btn-icon-sm rounded-circle border-0 bg-white shadow-sm" (click)="increaseQuantity(item._id, item.quantity)">
+                          <i class="bi bi-plus"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td class="fw-bold text-primary">{{ item.product.price * item.quantity | currency:'INR' }}</td>
+                    <td class="pe-4 text-end">
+                      <button class="btn btn-icon-sm btn-outline-danger rounded-circle border-0" (click)="removeFromCart(item._id)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <a routerLink="/products" class="btn btn-link text-decoration-none text-muted p-0">
+          <i class="bi bi-arrow-left me-2"></i> Continue Shopping
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 100px;">
+        <div class="card-body p-4">
+          <h5 class="fw-bold mb-4">Order Summary</h5>
+          
+          <div class="d-flex justify-content-between mb-3 text-muted">
+            <span>Subtotal</span>
+            <span>{{ subtotal | currency:'INR' }}</span>
+          </div>
+          
+          <div class="d-flex justify-content-between mb-3 text-muted">
+            <span>Shipping</span>
+            <span class="text-success fw-bold">FREE</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-4 text-muted">
+            <span>Order Tax</span>
+            <span>₹0.00</span>
+          </div>
+
+          <hr class="my-4 opacity-50">
+
+          <div class="d-flex justify-content-between mb-4">
+            <h5 class="fw-bold mb-0">Total</h5>
+            <h5 class="fw-bold mb-0 text-primary">{{ total | currency:'INR' }}</h5>
+          </div>
+
+          <button routerLink="/checkout" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+            Proceed to Checkout <i class="bi bi-arrow-right"></i>
+          </button>
+
+          <div class="mt-4 text-center">
+            <img src="https://i.imgur.com/L4u3XpE.png" alt="Payments" class="img-fluid opacity-50" style="height: 30px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <div class="text-center py-5 glass rounded-4 mx-auto" style="max-width: 500px;">
+      <div class="mb-4">
+        <div class="bg-light d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 100px; height: 100px;">
+          <i class="bi bi-bag-x fs-1 text-muted"></i>
+        </div>
+      </div>
+      <h3 class="fw-bold">Your cart is empty</h3>
+      <p class="text-muted mb-4 px-4">Looks like you haven't added anything to your cart yet. Explore our awesome products!</p>
+      <a routerLink="/products" class="btn btn-primary px-5 py-3 rounded-pill fw-bold">Go Shopping</a>
+    </div>
+  </ng-template>
+</div>
