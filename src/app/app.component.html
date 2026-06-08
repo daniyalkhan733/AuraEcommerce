@@ -66,6 +66,12 @@
   </div>
 </main>
 
+<!-- Floating Cart for Mobile (Only visible on small screens) -->
+<a routerLink="/cart" class="floating-cart-mobile d-lg-none" [class.badge-bump]="cartCount > 0">
+  <i class="bi bi-handbag-fill fs-4"></i>
+  <span class="badge rounded-pill bg-danger" *ngIf="cartCount > 0">{{ cartCount }}</span>
+</a>
+
 <footer class="bg-white py-5 mt-5 border-top">
   <div class="container">
     <div class="row">

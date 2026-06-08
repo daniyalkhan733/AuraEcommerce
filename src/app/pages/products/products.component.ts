@@ -50,6 +50,8 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
   searchTerm = '';
+  addingToCart: { [key: string]: boolean } = {};
+  addedToCart: { [key: string]: boolean } = {};
 
   constructor(
     private productService: ProductService,
@@ -84,11 +86,22 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
+    if (this.addingToCart[product._id]) return;
+
+    this.addingToCart[product._id] = true;
+    
     this.cartService.addToCart(product._id).subscribe({
       next: () => {
-        console.log(`${product.name} added to cart`);
+        this.addingToCart[product._id] = false;
+        this.addedToCart[product._id] = true;
+        
+        // Reset "Added" state after 2 seconds
+        setTimeout(() => {
+          this.addedToCart[product._id] = false;
+        }, 2000);
       },
       error: (error) => {
+        this.addingToCart[product._id] = false;
         console.error('Failed to add product to cart', error);
       }
     });

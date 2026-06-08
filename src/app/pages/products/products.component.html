@@ -55,8 +55,20 @@
             <span class="text-primary fw-bold fs-5">{{ product.price | currency:'INR' }}</span>
           </div>
           <h5 class="card-title fw-semibold mb-3">{{ product.name }}</h5>
-          <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" (click)="addToCart(product)">
-            <i class="bi bi-bag-plus"></i> Add to Cart
+          <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" 
+            [disabled]="addingToCart[product._id]"
+            [class.btn-added]="addedToCart[product._id]"
+            [class.success-animate]="addedToCart[product._id]"
+            (click)="addToCart(product)">
+            <ng-container *ngIf="!addingToCart[product._id] && !addedToCart[product._id]">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </ng-container>
+            <ng-container *ngIf="addingToCart[product._id]">
+              <span class="spinner-border spinner-border-sm" role="status"></span> Adding...
+            </ng-container>
+            <ng-container *ngIf="addedToCart[product._id]">
+              <i class="bi bi-check2-circle fs-5"></i> Added!
+            </ng-container>
           </button>
         </div>
       </div>
