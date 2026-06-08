@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:4200', 'https://auraecommerce.vercel.app', 'https://auraecommerce.netlify.app'], // Add your live frontend URLs here
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 
 // MongoDB Connection
