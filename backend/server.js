@@ -5,19 +5,18 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: ['http://localhost:4200', 'https://auraecommercedanny.netlify.app'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors()); // Simplest way to allow all origins temporarily for showcase
 app.use(express.json());
 
 // MongoDB Connection
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://daniyal733khan_db_user:ICo9I9WUnDJ8jo9X@cluster0.dc0fyen.mongodb.net/?appName=Cluster0';
+const mongoURI = process.env.MONGODB_URI;
+if (!mongoURI) {
+  console.error('FATAL ERROR: MONGODB_URI is not defined.');
+  process.exit(1);
+}
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const productRoutes = require('./routes/product.routes');
 const cartRoutes = require('./routes/cart.routes');
