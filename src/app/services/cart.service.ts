@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Cart } from '../models/cart.model';
-import { environment } from '../../environments/environment';
+import { GlobalConfig } from '../config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private apiUrl = `${environment.apiUrl}/cart`;
+  private apiUrl = `${GlobalConfig.apiUrl}/cart`;
   private cartSubject = new BehaviorSubject<Cart | null>(null);
   cart$ = this.cartSubject.asObservable();
 
