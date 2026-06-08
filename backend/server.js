@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/aura-ecommerce')
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://daniyal733khan_db_user:ICo9I9WUnDJ8jo9X@cluster0.dc0fyen.mongodb.net/?appName=Cluster0';
+mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
